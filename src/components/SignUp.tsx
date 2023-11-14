@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { Icons } from "./Icons";
-import UserAuthForm from "./UserAuthForm";
+import Link from 'next/link'
+import { Icons } from './Icons'
+import UserAuthForm from './UserAuthForm'
 
 const SignUp = () => {
   return (
@@ -17,13 +17,16 @@ const SignUp = () => {
 
         <p className='px-8 text-center text-sm text-zinc-700'>
           Already a Kedditor?{' '}
-          <Link href='/sign-in' className='hover:text-brand text-sm underline underline-offset-4'>
+          <Link
+            href='/sign-in'
+            className='hover:text-brand text-sm underline underline-offset-4'
+          >
             Sign In
           </Link>
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp

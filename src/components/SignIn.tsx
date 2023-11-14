@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { Icons } from "./Icons";
-import UserAuthForm from "./UserAuthForm";
+import Link from 'next/link'
+import { Icons } from './Icons'
+import UserAuthForm from './UserAuthForm'
 
 const SignIn = () => {
   return (
@@ -17,13 +17,16 @@ const SignIn = () => {
 
         <p className='px-8 text-center text-sm text-zinc-700'>
           New to Breddit?{' '}
-          <Link href='/sign-up' className='hover:text-brand text-sm underline underline-offset-4'>
+          <Link
+            href='/sign-up'
+            className='hover:text-brand text-sm underline underline-offset-4'
+          >
             Sign Up
           </Link>
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignIn;
+export default SignIn

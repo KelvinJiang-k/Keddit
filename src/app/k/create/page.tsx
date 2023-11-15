@@ -8,10 +8,12 @@ import { useMutation } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { CreateSubkedditPayload } from '@/lib/validators/subkeddit'
 import { toast } from '@/hooks/use-toast'
+import { useCustomToast } from '@/hooks/use-custom-toast'
 
 const Page = () => {
   const [input, setInput] = useState<string>('')
   const router = useRouter()
+  const { loginToast } = useCustomToast()
 
   const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async () => {
@@ -24,13 +26,35 @@ const Page = () => {
     },
     onError: (err) => {
       if (err instanceof AxiosError) {
-        if (err.status === 409) {
+        if (err.response?.status === 409) {
           return toast({
             title: 'Subkeddit already exists',
-            description: '',
+            description: 'Please choose a different name',
+            variant: 'destructive',
           })
         }
+
+        if (err.response?.status === 422) {
+          return toast({
+            title: 'Invalid Subkeddit name',
+            description: 'Please choose a name between 3 and 21 characters',
+            variant: 'destructive',
+          })
+        }
+
+        if (err.response?.status === 401) {
+          return loginToast()
+        }
       }
+
+      toast({
+        title: 'There was an error',
+        description: 'Could not create Subkeddit',
+        variant: 'destructive',
+      })
+    },
+    onSuccess: (data) => {
+      router.push(`/k/${data}`)
     },
   })
 

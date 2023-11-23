@@ -17,11 +17,11 @@ const Page = () => {
 
   const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async () => {
-      const paylaod: CreateSubkedditPayload = {
+      const payload: CreateSubkedditPayload = {
         name: input,
       }
 
-      const { data } = await axios.post('/api/subkeddit', paylaod)
+      const { data } = await axios.post('/api/subkeddit', payload)
       return data as string
     },
     onError: (err) => {

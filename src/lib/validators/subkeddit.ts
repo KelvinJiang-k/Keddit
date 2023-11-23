@@ -5,7 +5,7 @@ export const SubkedditValidator = z.object({
 })
 
 export const SubkedditSubscriptioniValidator = z.object({
-  name: z.string(),
+  subkedditId: z.string(),
 })
 
 export type CreateSubkedditPayload = z.infer<typeof SubkedditValidator>

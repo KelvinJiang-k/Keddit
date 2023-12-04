@@ -1,8 +1,10 @@
 import SubscribeLeaveToggle from '@/components/SubscribeLeaveToggle'
+import { buttonVariants } from '@/components/ui/Button'
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/config'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { format } from 'date-fns'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 const Layout = async ({
@@ -97,6 +99,16 @@ const Layout = async ({
                     isSubscribed={isSubscribed}
                     subkedditName={subkeddit.name}
                   />
+
+                  <Link
+                    className={buttonVariants({
+                      variant: 'outline',
+                      className: 'w-full mb-6',
+                    })}
+                    href={`k/${slug}/submit`}
+                  >
+                    Create Post
+                  </Link>
                 </div>
               ) : null}
             </dl>

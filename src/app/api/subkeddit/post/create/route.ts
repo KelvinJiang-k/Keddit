@@ -1,6 +1,6 @@
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
-import { SubkedditSubscriptioniValidator } from '@/lib/validators/subkeddit'
+import { PostValidator } from '@/lib/validators/post'
 import { z } from 'zod'
 
 export async function POST(req: Request) {
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json()
-    const { subkedditId } = SubkedditSubscriptioniValidator.parse(body)
+    const { subkedditId, title, content } = PostValidator.parse(body)
 
     const subscriptionExists = await db.subscription.findFirst({
       where: {
@@ -21,16 +21,18 @@ export async function POST(req: Request) {
       },
     })
 
-    if (subscriptionExists) {
-      return new Response('You are already subscribed to this subkeddit', {
+    if (!subscriptionExists) {
+      return new Response('Subscribe to post', {
         status: 400,
       })
     }
 
-    await db.subscription.create({
+    await db.post.create({
       data: {
+        title,
+        content,
         subkedditId,
-        userId: session.user.id,
+        authorId: session.user.id,
       },
     })
 
@@ -40,8 +42,11 @@ export async function POST(req: Request) {
       return new Response('Invalid request data passed', { status: 422 })
     }
 
-    return new Response('Could not subscribe, please try again later', {
-      status: 500,
-    })
+    return new Response(
+      'Could not post to subkeddit at this time, please try again later',
+      {
+        status: 500,
+      }
+    )
   }
 }

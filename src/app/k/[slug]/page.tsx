@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { FC } from 'react'
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/config'
 import MiniCreatePost from '@/components/MiniCreatePost'
+import PostFeed from '@/components/PostFeed'
 
 interface pageProps {
   params: {
@@ -28,7 +29,7 @@ const page = async ({ params }: pageProps) => {
           comments: true,
           subkeddit: true,
         },
-        take: INFINITE_SCROLLING_PAGINATION_RESULTS,
+        take: 2,
       },
     },
   })
@@ -43,6 +44,7 @@ const page = async ({ params }: pageProps) => {
         k/{subkeddit.name}
       </h1>
       <MiniCreatePost session={session} />
+      <PostFeed initialPosts={subkeddit.posts} subkedditName={subkeddit.name} />
     </>
   )
 }

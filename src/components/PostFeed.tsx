@@ -11,7 +11,7 @@ import Post from './Post'
 
 interface PostFeedProps {
   initialPosts: ExtendedPost[]
-  subkedditName: string
+  subkedditName?: string
 }
 
 const PostFeed: FC<PostFeedProps> = ({ initialPosts, subkedditName }) => {

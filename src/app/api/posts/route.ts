@@ -29,7 +29,7 @@ export async function GET(req: Request) {
       .object({
         limit: z.string(),
         page: z.string(),
-        subkedditName: z.string(),
+        subkedditName: z.string().nullish().optional(),
       })
       .parse({
         limit: url.searchParams.get('limit'),
